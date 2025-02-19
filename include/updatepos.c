@@ -20,37 +20,52 @@ void UpdatePosition(ship* player, Matrix rotate){
   if(IsKeyDown(KEY_D)){player->vert1.x += 10;player->vert2.x += 10;player->vert3.x += 10;}
 
   if(IsKeyDown(KEY_UP)){
-    player->vert1.x = player->center.x + (player->vert1.x - player->center.x)*cos(player->angle) - (player->vert1.y - player->center.y)*sin(player->angle);
-    player->vert1.y = player->center.y + (player->vert1.x - player->center.x)*sin(player->angle) + (player->vert1.y - player->center.y)*cos(player->angle);
+      // Store original positions before modification
+    float x1 = player->vert1.x - player->center.x;
+    float y1 = player->vert1.y - player->center.y;
+    float x2 = player->vert2.x - player->center.x;
+    float y2 = player->vert2.y - player->center.y;
+    float x3 = player->vert3.x - player->center.x;
+    float y3 = player->vert3.y - player->center.y;
 
-    player->vert2.x = player->center.x + (player->vert2.x - player->center.x)*cos(player->angle) - (player->vert2.y - player->center.y)*sin(player->angle);
-    player->vert2.y = player->center.y + (player->vert2.x - player->center.x)*sin(player->angle) + (player->vert2.y - player->center.y)*cos(player->angle);
+    // Compute sin and cos once for efficiency
+    float cosA = cosf(player->angle);
+    float sinA = sinf(player->angle);
 
-    player->vert3.x = player->center.x + (player->vert3.x - player->center.x)*cos(player->angle) - (player->vert3.y - player->center.y)*sin(player->angle);
-    player->vert3.y = player->center.y + (player->vert3.x - player->center.x)*sin(player->angle) + (player->vert3.y - player->center.y)*cos(player->angle);
+    // Rotate and reassign
+    player->vert1.x = player->center.x + x1 * cosA - y1 * sinA;
+    player->vert1.y = player->center.y + x1 * sinA + y1 * cosA;
+
+    player->vert2.x = player->center.x + x2 * cosA - y2 * sinA;
+    player->vert2.y = player->center.y + x2 * sinA + y2 * cosA;
+
+    player->vert3.x = player->center.x + x3 * cosA - y3 * sinA;
+    player->vert3.y = player->center.y + x3 * sinA + y3 * cosA;
   }
 
   if(IsKeyDown(KEY_DOWN)){
-    player->vert1.x = player->center.x + (player->vert1.x - player->center.x)*cos(-player->angle) - (player->vert1.y - player->center.y)*sin(-player->angle);
-    player->vert1.y = player->center.y + (player->vert1.x - player->center.x)*sin(-player->angle) + (player->vert1.y - player->center.y)*cos(-player->angle);
-                                                                                                                                             
-    player->vert2.x = player->center.x + (player->vert2.x - player->center.x)*cos(-player->angle) - (player->vert2.y - player->center.y)*sin(-player->angle);
-    player->vert2.y = player->center.y + (player->vert2.x - player->center.x)*sin(-player->angle) + (player->vert2.y - player->center.y)*cos(-player->angle);
-                                                                                                                                             
-    player->vert3.x = player->center.x + (player->vert3.x - player->center.x)*cos(-player->angle) - (player->vert3.y - player->center.y)*sin(-player->angle);
-    player->vert3.y = player->center.y + (player->vert3.x - player->center.x)*sin(-player->angle) + (player->vert3.y - player->center.y)*cos(-player->angle);
-  }
+      // Store original positions before modification
+    float x1 = player->vert1.x - player->center.x;
+    float y1 = player->vert1.y - player->center.y;
+    float x2 = player->vert2.x - player->center.x;
+    float y2 = player->vert2.y - player->center.y;
+    float x3 = player->vert3.x - player->center.x;
+    float y3 = player->vert3.y - player->center.y;
 
-  /*if(IsKeyDown(KEY_DOWN)){
-    player->vert1.x = player->center.x + (player->vert1.x - player->center.x)*cos(-player->angle) - (player->vert1.y - player->center.y)*sin(-player->angle);
-    player->vert1.y = player->center.y + (player->vert1.x - player->center.x)*sin(-player->angle) + (player->vert1.y - player->center.y)*cos(-player->angle);
-                                                                                                                                             
-    player->vert2.x = player->center.x + (player->vert2.x - player->center.x)*cos(-player->angle) - (player->vert2.y - player->center.y)*sin(-player->angle);
-    player->vert2.y = player->center.y + (player->vert2.x - player->center.x)*sin(-player->angle) + (player->vert2.y - player->center.y)*cos(-player->angle);
-                                                                                                                                             
-    player->vert3.x = player->center.x + (player->vert3.x - player->center.x)*cos(-player->angle) - (player->vert3.y - player->center.y)*sin(-player->angle);
-    player->vert3.y = player->center.y + (player->vert3.x - player->center.x)*sin(-player->angle) + (player->vert3.y - player->center.y)*cos(-player->angle);
-  }*/
+    // Compute sin and cos once for efficiency
+    float cosA = cosf(-player->angle);
+    float sinA = sinf(-player->angle);
+
+    // Rotate and reassign
+    player->vert1.x = player->center.x + x1 * cosA - y1 * sinA;
+    player->vert1.y = player->center.y + x1 * sinA + y1 * cosA;
+
+    player->vert2.x = player->center.x + x2 * cosA - y2 * sinA;
+    player->vert2.y = player->center.y + x2 * sinA + y2 * cosA;
+
+    player->vert3.x = player->center.x + x3 * cosA - y3 * sinA;
+    player->vert3.y = player->center.y + x3 * sinA + y3 * cosA;
+  }
 
   while(IsMouseButtonDown(MOUSE_LEFT_BUTTON) && currentState.shootTime > currentState.shootDelay){
     if(currentState.laserCount >= MAXCOUNT){break;}
