@@ -1,6 +1,6 @@
 #include <collision.c>
 
-void UpdatePosition(ship* player, Matrix rotate){
+void UpdatePosition(ship* player){
 
   if(currentState.shootTime < currentState.shootDelay){
     currentState.shootTime += GetFrameTime();
@@ -14,13 +14,13 @@ void UpdatePosition(ship* player, Matrix rotate){
   //      ScoreCounter
   //      SpawnAsteroid
 
-  if(IsKeyDown(KEY_W)){player->vert1.y -= 10;player->vert2.y -= 10;player->vert3.y -= 10;}
-  if(IsKeyDown(KEY_S)){player->vert1.y += 10;player->vert2.y += 10;player->vert3.y += 10;}
-  if(IsKeyDown(KEY_A)){player->vert1.x -= 10;player->vert2.x -= 10;player->vert3.x -= 10;}
-  if(IsKeyDown(KEY_D)){player->vert1.x += 10;player->vert2.x += 10;player->vert3.x += 10;}
+  if(IsKeyDown(KEY_W)){player->vert1.y -= 10;player->vert2.y -= 10;player->vert3.y -= 10;player->center.y -= 10;}
+  if(IsKeyDown(KEY_S)){player->vert1.y += 10;player->vert2.y += 10;player->vert3.y += 10;player->center.y += 10;}
+  if(IsKeyDown(KEY_A)){player->vert1.x -= 10;player->vert2.x -= 10;player->vert3.x -= 10;player->center.x -= 10;}
+  if(IsKeyDown(KEY_D)){player->vert1.x += 10;player->vert2.x += 10;player->vert3.x += 10;player->center.x += 10;}
 
   if(IsKeyDown(KEY_UP)){
-      // Store original positions before modification
+    // Store original positions before modification
     float x1 = player->vert1.x - player->center.x;
     float y1 = player->vert1.y - player->center.y;
     float x2 = player->vert2.x - player->center.x;
@@ -44,7 +44,7 @@ void UpdatePosition(ship* player, Matrix rotate){
   }
 
   if(IsKeyDown(KEY_DOWN)){
-      // Store original positions before modification
+    // Store original positions before modification
     float x1 = player->vert1.x - player->center.x;
     float y1 = player->vert1.y - player->center.y;
     float x2 = player->vert2.x - player->center.x;
@@ -75,5 +75,8 @@ void UpdatePosition(ship* player, Matrix rotate){
     currentState.laserArray[currentState.laserCount++] = beam;
     currentState.shootTime -= currentState.shootDelay;
   }
-  DrawTriangleLines(player->vert1, player->vert2, player->vert3, WHITE);
+  DrawLine(player->vert1.x, player->vert1.y, player->vert2.x, player->vert2.y, WHITE);
+  DrawLine(player->vert2.x, player->vert2.y, player->center.x, player->center.y, WHITE);
+  DrawLine(player->center.x, player->center.y, player->vert3.x, player->vert3.y, WHITE);
+  DrawLine(player->vert3.x, player->vert3.y, player->vert1.x, player->vert1.y, WHITE);
 }

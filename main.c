@@ -20,16 +20,9 @@ int main(){
   ship player = {
     .angle = 0.05,
     .center = {WIDTH/2, HEIGHT/2},
-    .vert1 = {player.center.x, player.center.y + 10},
-    .vert2 = {player.vert1.x - 10, player.vert1.y + 10},
-    .vert3 = {player.vert1.x + 10, player.vert1.y + 10}
-  };
-
-  Matrix rotate = {
-    .m0 = cos(player.angle),
-    .m4 = -sin(player.angle),
-    .m1 = sin(player.angle),
-    .m5 = cos(player.angle)
+    .vert1 = {player.center.x, player.center.y + 20},
+    .vert2 = {player.vert1.x - 20, player.vert1.y + 30},
+    .vert3 = {player.vert1.x + 20, player.vert1.y + 30}
   };
 
   SetTargetFPS(60);
@@ -44,7 +37,7 @@ int main(){
     BeginDrawing();
     BeginMode2D(camera);
     ClearBackground(BLACK);
-    UpdatePosition(&player, rotate);
+    UpdatePosition(&player);
     EndMode2D();
     EndDrawing();
   }
