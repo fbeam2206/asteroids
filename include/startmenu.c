@@ -2,35 +2,35 @@
 
 void StartMenu(Camera2D camera){
   Vector2 clickCord = {0,0};
-  int menuWidth = MeasureText("MENU", 48);
-  int startWidth = MeasureText("START", 48);
-  int optionsWidth = MeasureText("OPTIONS", 48);
-  int quitWidth = MeasureText("QUIT", 48);
+  float menuWidth = MeasureText("MENU", 48);
+  float startWidth = MeasureText("START", 48);
+  float optionsWidth = MeasureText("OPTIONS", 48);
+  float quitWidth = MeasureText("QUIT", 48);
 
   Rectangle button = {
-    .x = WIDTH/2 - menuWidth/2,
+    .x = WIDTH/2.0 - menuWidth/2.0,
     .y = HEIGHT/14,
-    .width = menuWidth + 2,
+    .width = (menuWidth + 2.0),
     .height = HEIGHT/18
   };
 
   Rectangle button2 = {
     .x = WIDTH/2 - startWidth/2,
-    .y = button.y + button.height * 1.5,
+    .y = (button.y + button.height * 1.5),
     .width = startWidth + 3,
     .height = button.height
   };
 
   Rectangle button3 = {
     .x = WIDTH/2 - optionsWidth/2,
-    .y = button2.y + button2.height * 1.5,
+    .y = (button2.y + button2.height * 1.5),
     .width = optionsWidth + 2,
     .height = button2.height
   };
 
   Rectangle button4 = {
     .x = WIDTH/2 - quitWidth/2,
-    .y = button3.y + button2.height * 1.5,
+    .y = (button3.y + button2.height * 1.5),
     .width = quitWidth + 3,
     .height = button2.height
   };

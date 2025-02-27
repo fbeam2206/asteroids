@@ -1,15 +1,18 @@
 #ifndef SAND_H
 #define SAND_H
 
-#include <raylib.h>
-#include <raymath.h>
-#include <rcamera.h>
+#include "raylib.h"
+#include "raymath.h"
+#include "rcamera.h"
+#include <rlgl.h>
+#include <time.h>
+#include <stdlib.h>
 
-#define WIDTH 1200
-#define HEIGHT 800
+#define WIDTH (float) 1200
+#define HEIGHT (float) 800
 #define ACC 450
 #define FRIC 450
-#define MAXCOUNT 10
+#define MAXCOUNT 100
 #define RADIUS 6
 #define FLOOR 795
 #define FONT_SIZE 48
@@ -35,18 +38,22 @@ typedef struct ship{
   float angle;
 }ship;
 
-typedef struct laser{
+typedef struct Laser{
   Vector2 pos;
-  Vector2 vel;
   Vector2 dir;
-}laser;
+  float speed;
+  Vector2 vel;
+  bool    hit;
+}Laser;
 
 typedef struct Asteroid{
-  Vector2 pos;
   Vector2 prevPos;
-  Vector2 vel;
+  Vector2 pos;
   Vector2 dir;
-}Asteroid;
+  float speed;
+  Vector2 vel;
+  bool destroyed;
+ }Asteroid;
 
 typedef struct gameState{
   int laserCount;
@@ -56,17 +63,17 @@ typedef struct gameState{
   float spawnDelay;
   float spawnTime;
   Asteroid astArray[MAXCOUNT];
-  laser laserArray[MAXCOUNT];
+  Laser laserArray[MAXCOUNT];
+  int score;
 }gameState;
 
 gameState currentState = {
-  .laserCount = 0,
   .spawnDelay = 2,
-  .shootDelay = 0.5 
+  .shootDelay = 0.3 
 };
 
-void Collision(laser* beam, Asteroid* asteroid);
+void Collision();
 
-void UpdatePosition();
+void UpdatePosition(ship* player, Texture* texture);
 
 #endif
